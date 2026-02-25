@@ -72,7 +72,7 @@
         <p class="text-center">That`s all, folks!</p>
         <hr class="border-pixl-light/10 mt-4" />
         <!-- White noise-->
-        <div class="bg-[url(/images/white-noise.gif)] h-20"></div>
+        <div class="bg-[url(/resources/images/white-noise.gif)] h-20"></div>
     </footer>
 </main>
 <!-- Sidebar -->
