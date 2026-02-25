@@ -38,17 +38,27 @@ class Post extends Model
     {
         return $this->hasMany(Like::class);
     }
-    public function reposts() :HasMany
+    public function reposts(): HasMany
     {
         return $this->hasMany(Post::class, 'repost_of_id');
     }
 
-    public static function publish(Profile $profile, string $content) : self
+    public static function publish(Profile $profile, string $content): self
     {
         return static::create([
             'profile_id' => $profile->id,
             'content' => $content,
             'parent_id' => null,
+            'repost_of_id' => null,
+        ]);
+    }
+
+    public static function reply(Profile $profile, Post $post, string $content): self
+    {
+        return static::create([
+            'profile_id' => $profile->id,
+            'content' => $content,
+            'parent_id' => $post->id,
             'repost_of_id' => null,
         ]);
     }
