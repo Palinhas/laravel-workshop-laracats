@@ -16,6 +16,7 @@ class Post extends Model
         'profile_id',
         'content',
         'parent_id',
+        'repost_of_id',
     ];
 
     public function profile() :belongsTo
@@ -37,9 +38,18 @@ class Post extends Model
     {
         return $this->hasMany(Like::class);
     }
+    public function reposts() :HasMany
+    {
+        return $this->hasMany(Post::class, 'repost_of_id');
+    }
 
-        public function reposts() :HasMany
-        {
-            return $this->hasMany(Post::class, 'repost_of_id');
-        }
+    public static function publish(Profile $profile, string $content) : self
+    {
+        return static::create([
+            'profile_id' => $profile->id,
+            'content' => $content,
+            'parent_id' => null,
+            'repost_of_id' => null,
+        ]);
+    }
 }
